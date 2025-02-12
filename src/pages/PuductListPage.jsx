@@ -63,7 +63,6 @@ const ProductListPage = () => {
           qty: Number(qty),
         },
       });
-      await getCart();
       setIsComponentLoading(false);
     } catch (error) {
       alert(error.response.data.message);

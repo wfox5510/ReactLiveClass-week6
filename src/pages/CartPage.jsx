@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { useState, useEffect } from "react";
 
+import ReactLoading from "react-loading";
 import axios from "axios";
 
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -10,6 +11,7 @@ const API_BASE = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 const CartPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [cartData, setCartData] = useState(null);
   useEffect(() => {
     getCart();
@@ -24,14 +26,15 @@ const CartPage = () => {
   };
   const delCartItem = async (id) => {
     try {
-      setIsComponentLoading(true);
-      res = await axios.delete(`${API_BASE}/api/${API_PATH}/cart/${id}`);
+      setIsLoading(true);
+      await axios.delete(`${API_BASE}/api/${API_PATH}/cart/${id}`);
       await getCart();
-      setIsComponentLoading(false);
+      setIsLoading(false);
     } catch (error) {
+      console.dir(error);
       alert(error.response.data.message);
     } finally {
-      setIsComponentLoading(false);
+      setIsLoading(false);
     }
   };
   const delCarts = async () => {
@@ -81,6 +84,24 @@ const CartPage = () => {
   return (
     <>
       <div className="container py-5">
+        {isLoading && (
+          <div
+            className="d-flex justify-content-center align-items-center"
+            style={{
+              position: "fixed",
+              inset: 0,
+              backgroundColor: "rgba(255,255,255,0.3)",
+              zIndex: 1000,
+            }}
+          >
+            <ReactLoading
+              type="spinningBubbles"
+              color="black"
+              height={"100px"}
+              width={"100px"}
+            />
+          </div>
+        )}
         {cartData?.carts.length !== 0 ? (
           <>
             <div className="text-end">
@@ -138,8 +159,10 @@ const CartPage = () => {
                 </tr>
               </tfoot>
             </table>
-          </>):(<p className="fs-3">購物車目前是空的喔~</p>)
-        }
+          </>
+        ) : (
+          <p className="fs-3">購物車目前是空的喔~</p>
+        )}
         <div className="my-5 row justify-content-center">
           <form className="col-md-6" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-3">
@@ -253,7 +276,11 @@ const CartPage = () => {
               ></textarea>
             </div>
             <div className="text-end">
-              <button type="submit" className="btn btn-danger" disabled={cartData?.carts.length === 0 && true}>
+              <button
+                type="submit"
+                className="btn btn-danger"
+                disabled={cartData?.carts.length === 0 && true}
+              >
                 送出訂單
               </button>
             </div>
