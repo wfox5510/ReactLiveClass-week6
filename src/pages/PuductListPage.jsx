@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-
+import { NavLink } from "react-router-dom";
 import { Modal } from "bootstrap";
+
 import ReactLoading from "react-loading";
 import axios from "axios";
 
@@ -37,10 +38,6 @@ const ProductListPage = () => {
     }
   };
 
-  const handleProductBtn = (productItem) => {
-    setTempProduct(productItem);
-    openModal();
-  };
   const handleModalBtn = async (id, qty) => {
     await addCart(id, qty);
     closeModal();
@@ -189,17 +186,16 @@ const ProductListPage = () => {
                 </td>
                 <td>
                   <div className="btn-group btn-group-sm">
-                    <button
-                      type="button"
-                      className="btn btn-outline-secondary"
-                      onClick={() => handleProductBtn(productItem)}
-                      disabled={isComponentLoading}
+                    <NavLink
+                      className={`btn btn-outline-secondary ${isComponentLoading && "disabled"}`}
+                      to={`/product/${productItem.id}`}
+                      aria-disabled={isComponentLoading && "true"}
                     >
                       查看更多
                       {isComponentLoading && (
                         <i className="fas fa-spinner fa-pulse ms-1"></i>
                       )}
-                    </button>
+                    </NavLink>
                     <button
                       type="button"
                       className="btn btn-outline-danger"
