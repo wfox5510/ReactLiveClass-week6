@@ -1,12 +1,13 @@
-import App from "../App";
+import ProductPageLayout from "../layouts/ProductPage/ProductPageLayout";
 import CartPage from "../pages/CartPage";
 import HomePage from "../pages/HomePage";
 import ProductListPage from "../pages/PuductListPage";
 import ProductPage from "../pages/ProductPage";
+import LoginPage from "../pages/LoginPage";
 const router = [
   {
     path: "/",
-    element: <App />,
+    element: <ProductPageLayout />,
     children: [
       {
         path: "",
@@ -23,6 +24,16 @@ const router = [
       {
         path: "product/:id",
         element: <ProductPage />,
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <LoginPage />,
+    children: [
+      {
+        path: "login",
+        element: <LoginPage />,
       },
     ],
   },

@@ -5,8 +5,6 @@ import { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
 import axios from "axios";
 
-import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-
 const API_BASE = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
