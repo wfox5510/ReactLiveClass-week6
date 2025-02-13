@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-const NavBar = () => {
+const NavBar = ({ navItemList }) => {
   return (
     <nav
       className="navbar bg-dark border-bottom border-body"
@@ -7,26 +7,15 @@ const NavBar = () => {
     >
       <div className="container">
         <ul className="navbar-nav flex-row gap-5 fs-5">
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/">
-              首頁
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="productList">
-              產品頁
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/cart">
-              購物車
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/admin/login">
-              登入
-            </NavLink>
-          </li>
+          {navItemList.map((navItem,index) => {
+            return (
+              <li className="nav-item" key={index}>
+                <NavLink className="nav-link" to={navItem.path}>
+                  {navItem.name}
+                </NavLink>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </nav>

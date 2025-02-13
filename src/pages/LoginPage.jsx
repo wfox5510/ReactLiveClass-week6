@@ -5,13 +5,12 @@ const API_BASE = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 const LoginPage = () => {
-  let navigate = useNavigate();
+  const navigate= useNavigate();
   useEffect(() => {
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)hexTokenWeek2\s*\=\s*([^;]*).*$)|^.*$/,
       "$1"
     );
-
     token !== "" &&
       (async () => {
         try {
@@ -24,8 +23,10 @@ const LoginPage = () => {
               },
             }
           );
-          navigate("/admin");
-        } catch (error) {}
+          navigate("/admin/productList");
+        } catch (error) {
+          alert(error.response.data.message);
+        }
       })();
   }, []);
 
@@ -44,7 +45,7 @@ const LoginPage = () => {
 
       const oneMonthInSeconds = 30 * 24 * 60 * 60; // 30 天
       document.cookie = `hexTokenWeek2=${res.data.token}; max-age=${oneMonthInSeconds}`;
-      navigate("/admin");
+      navigate("/admin/productList");
     } catch (error) {
       console.log(error);
     }

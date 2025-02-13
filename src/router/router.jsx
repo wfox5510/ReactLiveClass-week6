@@ -4,6 +4,9 @@ import HomePage from "../pages/HomePage";
 import ProductListPage from "../pages/PuductListPage";
 import ProductPage from "../pages/ProductPage";
 import LoginPage from "../pages/LoginPage";
+import AdminProductList from "../pages/AdminProductListPage";
+import AdminPageLayout from "../layouts/AdminPage/AdminPageLayout";
+import AdminOrderPage from "../pages/AdminOrderPage";
 const router = [
   {
     path: "/",
@@ -29,12 +32,20 @@ const router = [
   },
   {
     path: "/admin",
-    element: <LoginPage />,
+    element: <AdminPageLayout />,
     children: [
       {
         path: "login",
         element: <LoginPage />,
       },
+      {
+        path: "productList",
+        element: <AdminProductList/>,
+      },
+      {
+        path: "order",
+        element: <AdminOrderPage/>,
+      }
     ],
   },
 ];

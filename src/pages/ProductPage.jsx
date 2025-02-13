@@ -11,7 +11,7 @@ const ProductPage = () => {
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const param = useParams();
-  let navigate = useNavigate();
+  const navigate= useNavigate();
   useEffect(() => {
     getProduct(param.id);
   }, []);

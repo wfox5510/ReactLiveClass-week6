@@ -4,15 +4,23 @@ import { Outlet } from "react-router-dom";
 
 import NavBar from "../../components/Navbar";
 
-
-
-const API_BASE = import.meta.env.VITE_BASE_URL;
-const API_PATH = import.meta.env.VITE_API_PATH;
-
 function ProductPageLayout() {
+  const navItemList = [{
+    name:"首頁",
+    path:"/"
+  },{
+    name:"產品頁",
+    path:"/productList"
+  },{
+    name:"購物車",
+    path:"/cart"
+  },{
+    name:"登入",
+    path:"/admin/login"
+  }];
   return (
     <>
-      <NavBar />
+      <NavBar navItemList={navItemList}/>
       <Outlet />
     </>
   );
